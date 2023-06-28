@@ -1,0 +1,78 @@
+@charset "utf-8";
+@use "sass:map";
+@use "sass:color";
+
+/*--------------------------------------------------
+Variable
+--------------------------------------------------*/
+
+$basicFontSize: 1.6rem;//16px
+$basicFontFamily: 'Noto Sans JP', sans-serif;
+$basicFontColor: #5E5E5E;
+$basicBackgroundColor: #fff;
+
+$ts01: 0.3s ease-out;
+$opacity: 0.6;
+
+// カラー
+$tmcol: #E2EFD1;
+$subcol: #F6F4E8;
+
+$grycol01: #F5F5F5;
+$grycol02: #F3F3F3;
+
+
+
+// ヘッダー高さ
+$pchdr_h: 120px; //PCのとき
+$sphdr_h: 75px; //spのとき
+
+// PCインナー
+$pcwin_inr_w: 1280px;
+
+/*---------- フォント ----------*/
+
+$zenkaku: 'Zen Maru Gothic', sans-serif;
+
+
+/*--------------------------------------------------
+Mixin
+--------------------------------------------------*/
+
+/*---------- Responsive ----------*/
+
+$breakpoints: (
+  'common': '',//共通
+  'pc': 'all and (min-width: 768px)',
+	'sp': 'screen and (max-width: 767px)'
+);
+
+@mixin responsive($media, $division: '') {
+	@if map.has-key($breakpoints, $media) {
+		@if $media == 'common' {
+			@content;
+		}
+		@else {
+			@if $division != '' {//PC幅内で切り替えがあるとき
+				$division: " and (max-width:#{$division})";
+			}
+			@media #{map.get($breakpoints, $media)}#{$division} {
+				@content;
+			}
+		}
+	}
+
+	// マップ型で定義されていない値が呼び出された時はエラーを返す
+	@else {
+		@error "指定されたブレークポイントは定義されていません。" + "指定できるブレークポイントは次のとおりです。 -> #{map.keys($breakpoints)}";
+	}
+}
+
+
+/*---------- fade animetion ----------*/
+
+
+/*---------- icon ----------*/
+
+/*---------- mixin ----------*/
+
